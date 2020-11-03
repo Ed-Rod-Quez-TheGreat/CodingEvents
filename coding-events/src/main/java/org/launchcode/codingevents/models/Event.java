@@ -21,15 +21,21 @@ public class Event {
     @Email(message = "Invalid email, try again.")
     private String contactEmail;
 
-    public Event(String name, String description, String contactEmail) {
+    private EventType type;
+    /* EventType doesn't need validation since is Enum w/set valid values already in eventtype.java*/
+
+    public Event(String name, String description, String contactEmail, EventType type) {
+        this(); /*calls different constructor within the same class (line 35)*/
         this.name = name;
         this.description= description;
         this.contactEmail= contactEmail;
+        this.type= type;
+    }
+
+    public Event() {
         this.id = nextId;
         nextId++;
     }
-
-    public Event() {}
 
     public String getName() {
         return name;
@@ -53,6 +59,14 @@ public class Event {
 
     public void setContactEmail(String contactEmail) {
         this.contactEmail = contactEmail;
+    }
+
+    public EventType getType() {
+        return type;
+    }
+
+    public void setType(EventType type) {
+        this.type = type;
     }
 
     public int getId() {

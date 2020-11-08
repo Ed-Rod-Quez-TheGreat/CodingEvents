@@ -1,14 +1,22 @@
 package org.launchcode.codingevents.models;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Objects;
 
+
+@Entity
 public class Event {
 
+    @Id
+    @GeneratedValue
     private int id;
-    private static int nextId = 1;
+
+    //private static int nextId = 1; Replaced by ID/generatedval annotations for mySql
 
     @NotBlank(message = "Name is required")
     @Size(min = 3, max = 50, message = "Name must be between 3-50 characters")
@@ -25,17 +33,14 @@ public class Event {
     /* EventType doesn't need validation since is Enum w/set valid values already in eventtype.java*/
 
     public Event(String name, String description, String contactEmail, EventType type) {
-        this(); /*calls different constructor within the same class (line 35)*/
+        /*this(); calls different constructor within the same class (line 35)obsolete via ln 15*/
         this.name = name;
         this.description= description;
         this.contactEmail= contactEmail;
         this.type= type;
     }
 
-    public Event() {
-        this.id = nextId;
-        nextId++;
-    }
+    public Event() { } //removed nextid++ since annotations handle via mysql
 
     public String getName() {
         return name;
